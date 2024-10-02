@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Rating</title>
+    <title>Movie Rating With Ajax</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/script.js"></script>
 </head>
@@ -13,9 +13,23 @@
     <input type="text" id="title" placeholder="Movie Title" required>
     <input type="number" id="rating" placeholder="Rating (1-5)" min="1" max="5" required>
     <button type="submit">Submit</button>
-    <br/>
 </form>
+<br/>
+
 <h2>Average Rating: <span id="averageRating">0.0</span></h2>
 <div id="successMessage" style="color: green;"></div>
+
+<h2>Movies List</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Rating</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody id="movieList">
+    </tbody>
+</table>
 </body>
 </html>

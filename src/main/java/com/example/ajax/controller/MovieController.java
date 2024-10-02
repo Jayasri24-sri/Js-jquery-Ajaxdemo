@@ -1,26 +1,40 @@
 package com.example.ajax.controller;
+import com.example.ajax.model.Movie;
+import com.example.ajax.service.MovieService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import java.util.ArrayList;
 import java.util.List;
-
 @RestController
 @RequestMapping("/api/movies")
 public class MovieController
 {
-    private final List<Integer> ratings = new ArrayList<>();
+    @Autowired
+    private MovieService movieService;
     @PostMapping
-    public void submitRating(@RequestBody int rating)
+    public void submitRating(@RequestBody Movie movie)
     {
-        ratings.add(rating);
+        movieService.submitRating(movie);
     }
+
     @GetMapping("/average")
     public double getAverageRating()
     {
-        if (ratings.isEmpty())
-        {
-            return 0.0; //returning 0 if there is no ratings
-        }
-        double total = ratings.stream().mapToInt(Integer::intValue).sum();
-        return total / ratings.size(); //it will calculate average rating
+        return movieService.getAverageRating();
+    }
+
+    @GetMapping
+    public List<Movie> getAllMovies()
+    {
+        return movieService.findAllMovies();
+    }
+    @PutMapping("/{id}")
+    public Movie updateMovie(@PathVariable String id, @RequestBody Movie updatedMovie)
+    {
+        return movieService.updateMovie(id, updatedMovie);
+    }
+    @DeleteMapping("/{id}")
+    public void deleteMovie(@PathVariable String id)
+    {
+        movieService.deleteMovie(id);
     }
 }
